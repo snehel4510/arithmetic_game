@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void newMatch() {  //A game is composed of three matches
 
-        float operand1 = random.nextInt(10);
-        float operand2= random.nextInt(10);
+        int operand1 = random.nextInt(10);
+        int operand2= random.nextInt(10);
         //check if operand2 is not zero; otherwise in case of division-divide by zero error will come
         if(operand2==0)
             operand2++;
@@ -76,11 +76,15 @@ public class MainActivity extends AppCompatActivity {
         String operator = operators[random.nextInt(4)];
         textView2.setText(operand1 + operator + operand2);
 
-        // to generate wrong outputs for incorrect options
-        float rnd1 = random.nextInt(10);
-        float rnd2 = random.nextInt(20);
+        // to generate distinct wrong outputs for incorrect options
+        int rnd1 = random.nextInt(13);
+        int rnd2 = random.nextInt(17);
+        if (rnd1 == 0) rnd1++;
+        if (rnd2 == 0) rnd2++;
+        if (rnd1 == rnd2) rnd1 += rnd2;
+        if (rnd1 == operand1 && rnd2 == operand2) rnd2 += rnd1;
 
-      // Your code here, to display correct and incorrect options on the buttons
+        // Your code here, to display correct and incorrect options on the buttons
 
         if(correctButton==0) {
             switch (operator) {
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     button1.setText(operand1 * operand2 + " ");
                     break;
                 default:
-                    button1.setText(operand1 / operand2 + " ");
+                    button1.setText((float)operand1 / operand2 + " ");
                     break;
             }
             button2.setText(rnd1+rnd2+" ");
@@ -113,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     button2.setText(operand1 * operand2 + " ");
                     break;
                 default:
-                    button2.setText(operand1 / operand2 + " ");
+                    button2.setText((float)operand1 / operand2 + " ");
                     break;
             }
             button1.setText(rnd1+rnd2+" ");
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     button3.setText(operand1 * operand2 + " ");
                     break;
                 default:
-                    button3.setText(operand1 / operand2 + " ");
+                    button3.setText((float)operand1 / operand2 + " ");
                     break;
             }
             button1.setText(rnd1+rnd2+" ");
@@ -151,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     button4.setText(operand1 * operand2 + " ");
                     break;
                 default:
-                    button4.setText(operand1 / operand2 + " ");
+                    button4.setText((float)operand1 / operand2 + " ");
                     break;
             }
             button2.setText(rnd1+rnd2+" ");
