@@ -3,12 +3,9 @@ package com.example.ai_mad_numgame;
    App will show your last performance at the start of the activity. New Tournament will start from
    all performance set to -1 again. And your new performance will be visible, when you return back to game
  */
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +14,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;  //make changes at appropriate places to include this dependency
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -61,12 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("Performance")
 
                 .setMessage(getInterpretation(dataFrame,slope))
-                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        newMatch();
-                    }
-                }).show();
+                .setNeutralButton("OK", (dialog, which) -> newMatch()).show();
     }
 
     @SuppressLint("SetTextI18n")
