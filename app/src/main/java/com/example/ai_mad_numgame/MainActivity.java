@@ -24,21 +24,25 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
-    int matchCounter=0;
+    int matchCounter=0,c=0,ic=0;
     int []performance={-1,-1,-1,-1,-1,-1}; //score of a game is updated in this array
     int []score={-1,-1,-1}; //score of each match is updated in this array. A total of three matches in a game
     String[] operators ={"+","-","*","/"};
     int correctButton=0; //which button will have the correct answer (tag of that button)
     Random random=new Random(); //You will generate random algebra questions
-    TextView textView2;
+    TextView textView2, correct, incorrect;
     Button button1,button2,button3,button4;
     public void load(View view){
         Button buttonClicked=(Button)view;
         if(buttonClicked.getTag().toString().equals(correctButton+"")){
             score[matchCounter++]=1;
+            c++;
+            correct.setText("👍"+c + "");
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
         }else{
             score[matchCounter++]=0;
+            ic++;
+            incorrect.setText("👎"+ic + "");
             Toast.makeText(this, "Wrong", Toast.LENGTH_SHORT).show();
         }
         newMatch();
@@ -52,12 +56,14 @@ public class MainActivity extends AppCompatActivity {
         button3=findViewById(R.id.button3);
         button4=findViewById(R.id.button4);
         textView2=findViewById(R.id.textView2);
+        correct=findViewById(R.id.cor);
+        incorrect=findViewById(R.id.incor);
         newMatch();
         sharedPreferences=this.getSharedPreferences("com.example.aiapp_2022", Context.MODE_PRIVATE);
         int[][]dataFrame=dataPrep(); //dataPrep function returns a two-dimensional array
         double slope=LR.getSlope(dataFrame); //LR class, which provides slope on invoking getSlope
         new AlertDialog.Builder(this)
-               // .setIcon() //your custom icon
+                .setIcon(R.drawable.ic_score) //your custom icon
                 .setTitle("Performance")
                 .setMessage(getInterpretation(dataFrame,slope))
                 .setNeutralButton("OK", (dialog, which) -> newMatch()).show();
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         correctButton = random.nextInt(4);
         String operator = operators[random.nextInt(4)];
-        textView2.setText(operand1 + operator + operand2);
+        textView2.setText(operand1 + operator + operand2 + " = ");
 
         // to generate distinct wrong outputs for incorrect options
         int rnd1 = random.nextInt(13);
