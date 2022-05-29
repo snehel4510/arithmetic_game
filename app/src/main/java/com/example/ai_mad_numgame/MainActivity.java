@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                // .setIcon() //your custom icon
                 .setTitle("Performance")
-
                 .setMessage(getInterpretation(dataFrame,slope))
                 .setNeutralButton("OK", (dialog, which) -> newMatch()).show();
     }
@@ -67,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void newMatch() {  //A game is composed of three matches
 
-        int operand1 = random.nextInt(10);
-        int operand2= random.nextInt(10);
+        float operand1 = random.nextInt(10);
+        float operand2= random.nextInt(10);
         //check if operand2 is not zero; otherwise in case of division-divide by zero error will come
         if(operand2==0)
             operand2++;
@@ -78,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         textView2.setText(operand1 + operator + operand2);
 
         // to generate wrong outputs for incorrect options
-        int rnd1 = random.nextInt(10);
-        int rnd2 = random.nextInt(20);
+        float rnd1 = random.nextInt(10);
+        float rnd2 = random.nextInt(20);
 
       // Your code here, to display correct and incorrect options on the buttons
 
@@ -201,6 +200,18 @@ public class MainActivity extends AppCompatActivity {
     public String getInterpretation(int [][]dataFrame,double slope){
        //provide interpretation based on your slope analysis
         // Your code here
-        return "Performance Interpretation";
+        if(slope>1)
+            return "Good job, keep it up";
+        else if(slope<1)
+            return "Need to work more";
+        else if(slope==1){
+            int n=0;
+            for(int i=0;i<=5;i++){
+                if(dataFrame[i][1]==6) n++;
+            }
+            if(n==6)
+                return "Awesome, Perfect score of 3 in last 6 games";
+        }
+        return "Constant Performance";
     }
 }

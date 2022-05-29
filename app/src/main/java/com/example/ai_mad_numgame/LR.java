@@ -9,10 +9,10 @@ public class LR {
         if(dataframe==null)
             return -100;
         int sample_size=dataframe.length; //6
-        int predictor[]=new int[sample_size];
-        int response[]=new int[sample_size];
-        int squarePredictor[]=new int[sample_size];
-        int productPredictorResposne[]=new int[sample_size];
+        int[] predictor =new int[sample_size];
+        int[] response =new int[sample_size];
+        int[] squarePredictor =new int[sample_size];
+        int[] productPredictorResposne =new int[sample_size];
 
 
         for(int i=0;i< dataframe.length;i++) {
@@ -38,13 +38,11 @@ public class LR {
         Log.i("Numerator",numerator+"");
         double denominator=sample_size*sigmaXsquare-Math.pow(sigmaX,2);
         Log.i("Denominator",denominator+"");
-        double slope= numerator/denominator;
-        return slope;
+        return numerator/denominator;
     }
     static int getSigma(int[]predictor){
         int sum=0;
-        for(int i=0;i<predictor.length;i++)
-            sum+=predictor[i];
+        for (int j : predictor) sum += j;
         return sum;
     }
 
