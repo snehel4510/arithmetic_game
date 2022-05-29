@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences,sp1,sp2;
     int matchCounter=0,c=0,ic=0;
     int []performance={-1,-1,-1,-1,-1,-1}; //score of a game is updated in this array
     int []score={-1,-1,-1}; //score of each match is updated in this array. A total of three matches in a game
@@ -37,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
         if(buttonClicked.getTag().toString().equals(correctButton+"")){
             score[matchCounter++]=1;
             c++;
-            correct.setText("👍"+c + "");
+            correct.setText("👍"+c );
+//            sp1.edit().putString("title","👍"+c + "").apply();
+//            sp1.edit().putInt("cor",c).apply();
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
         }else{
             score[matchCounter++]=0;
             ic++;
-            incorrect.setText("👎"+ic + "");
+            incorrect.setText("👎"+ic);
+//            sp2.edit().putString("title","👎"+ic + "").apply();
+//            sp2.edit().putInt("cor",ic).apply();
             Toast.makeText(this, "Wrong", Toast.LENGTH_SHORT).show();
         }
         newMatch();
@@ -59,7 +63,13 @@ public class MainActivity extends AppCompatActivity {
         correct=findViewById(R.id.cor);
         incorrect=findViewById(R.id.incor);
         newMatch();
-        sharedPreferences=this.getSharedPreferences("com.example.aiapp_2022", Context.MODE_PRIVATE);
+        sharedPreferences=this.getSharedPreferences("com.example.ai_mad_numgame", Context.MODE_PRIVATE);
+//        sp1=this.getSharedPreferences("com.example.ai_mad_numgame",0);
+//        sp2=this.getSharedPreferences("com.example.ai_mad_numgame",0);
+//        int p1=sp1.getInt("cor",0);
+//        int p2=sp2.getInt("incor",0);
+//        correct.setText("👍"+p1+"");
+//        incorrect.setText("👎"+p2+"");
         int[][]dataFrame=dataPrep(); //dataPrep function returns a two-dimensional array
         double slope=LR.getSlope(dataFrame); //LR class, which provides slope on invoking getSlope
         new AlertDialog.Builder(this)
